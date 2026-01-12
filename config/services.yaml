@@ -1,0 +1,20 @@
+parameters:
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    App\Domain\User\Repository\UserRepositoryInterface:
+        alias: App\Infrastructure\User\Persistence\Doctrine\DoctrineUserRepository
+
+    App\Infrastructure\User\Security\UserProvider:
+        arguments:
+            $userRepository: '@App\Domain\User\Repository\UserRepositoryInterface'

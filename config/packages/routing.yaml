@@ -1,0 +1,8 @@
+framework:
+    router:
+        # default_uri: '%env(default:DEFAULT_URI:http://localhost:8080)%'
+
+when@prod:
+    framework:
+        router:
+            strict_requirements: null

@@ -1,0 +1,16 @@
+framework:
+    messenger:
+        default_bus: messenger.bus.default
+        buses:
+            messenger.bus.default:
+                middleware:
+                    - validation
+                    - doctrine_ping_connection
+
+        transports:
+            async:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+
+        routing:
+            'App\Application\User\Command\CreateUser\CreateUserCommand': async
+            'App\Application\User\Command\CreateAdmin\CreateAdminCommand': async
