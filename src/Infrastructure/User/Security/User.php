@@ -8,11 +8,6 @@ use App\Domain\User\Model\User as DomainUser;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * Adapter User pour Symfony Security
- *
- * Adapte notre entité Domain User à l'interface Symfony UserInterface
- */
 final readonly class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     public function __construct(

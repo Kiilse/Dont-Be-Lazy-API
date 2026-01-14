@@ -7,6 +7,7 @@ namespace App\Application\ToDoList\Query\GetToDoList;
 use App\Domain\ToDoList\Repository\ToDoListRepositoryInterface;
 use App\Domain\ToDoList\ValueObject\ToDoListId;
 use App\Application\ToDoList\DTO\ToDoListResponseDTO;
+use App\Application\ToDoList\Query\GetToDoList\GetToDoListQuery;
 
 final readonly class GetToDoListQueryHandler
 {
@@ -23,8 +24,8 @@ final readonly class GetToDoListQueryHandler
             userId: $toDoList->userId()->value(),
             toDoListId: $toDoList->id()->value(),
             title: $toDoList->title(),
-            mode: $toDoList->mode()->value(),
-            timerType: $toDoList->timerType()->value(),
+            mode: $toDoList->mode()->value,
+            timerType: $toDoList->timerType()->value,
             timerValue: $toDoList->timerValue()
         );
     }

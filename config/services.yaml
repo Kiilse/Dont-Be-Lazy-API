@@ -12,6 +12,7 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    # User Controllers
     App\Infrastructure\User\Http\Api\V1\UserController:
         tags: ['controller.service_arguments']
         public: true
@@ -30,3 +31,14 @@ services:
     App\Infrastructure\User\Security\UserProvider:
         arguments:
             $userRepository: '@App\Domain\User\Repository\UserRepositoryInterface'
+
+    # To Do List Controllers
+    App\Domain\ToDoList\Repository\ToDoListRepositoryInterface:
+        alias: App\Infrastructure\ToDoList\Persistence\Doctrine\DoctrineToDoListRepository
+
+    App\Infrastructure\ToDoList\Http\Api\V1\ToDoListController:
+        tags: ['controller.service_arguments']
+        public: true
+    
+    
+    

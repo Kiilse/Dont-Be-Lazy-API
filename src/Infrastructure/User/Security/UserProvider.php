@@ -10,11 +10,7 @@ use Symfony\Component\Security\Core\Exception\UserNotFoundException as SymfonyUs
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-/**
- * User Provider pour Symfony Security
- *
- * Adapte notre repository Domain à l'interface Symfony Security
- */
+
 final readonly class UserProvider implements UserProviderInterface
 {
     public function __construct(

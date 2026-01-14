@@ -9,8 +9,6 @@ use App\Domain\ToDoList\ValueObject\ToDoListId;
 
 interface ToDoListRepositoryInterface
 {
-    public function create(): bool;
-
     public function save(ToDoList $toDoList): void;
 
     public function findById(ToDoListId $toDoListId): ?ToDoList;
