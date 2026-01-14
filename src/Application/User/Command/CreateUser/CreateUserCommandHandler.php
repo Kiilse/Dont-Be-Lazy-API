@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace App\Application\User\Command\CreateUser;
 
 use App\Domain\Shared\ValueObject\Email;
-use App\Domain\User\Exception\InvalidUserException;
+use App\Domain\Shared\Exception\InvalidUserException;
 use App\Domain\User\Model\User;
 use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\ValueObject\UserId;
 use App\Domain\User\ValueObject\UserRole;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * Command Handler: Implémente un cas d'usage métier
@@ -40,14 +41,24 @@ final readonly class CreateUserCommandHandler
         $role = UserRole::from($command->role);
         $userId = UserId::generate();
 
+        // Créer un User temporaire pour le hashing
+        $tempUser = new class($command->email) implements PasswordAuthenticatedUserInterface {
+            public function __construct(private string $email) {}
+            public function getPassword(): ?string
+            {
+                return null;
+            }
+            public function getUserIdentifier(): string
+            {
+                return $this->email;
+            }
+        };
+
         $user = User::create(
             $userId,
             $email,
             $command->name,
-            $this->passwordHasher->hashPassword(
-                new \Symfony\Component\Security\Core\User\User($command->email, $command->password),
-                $command->password
-            ),
+            $this->passwordHasher->hashPassword($tempUser, $command->password),
             $role
         );
 

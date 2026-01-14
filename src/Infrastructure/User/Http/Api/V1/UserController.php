@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Http\Api\V1;
 
-use App\Application\User\Command\CreateUser\CreateUserCommand;
-use App\Application\User\Command\CreateUser\CreateUserCommandHandler;
 use App\Application\User\DTO\UserResponseDTO;
 use App\Application\User\Query\GetUser\GetUserQuery;
 use App\Application\User\Query\GetUser\GetUserQueryHandler;
@@ -32,86 +30,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 final readonly class UserController
 {
     public function __construct(
-        private CreateUserCommandHandler $createUserHandler,
         private GetUserQueryHandler $getUserHandler,
         private ValidatorInterface $validator
     ) {}
-
-    /**
-     * POST /api/v1/users
-     * Crée un nouvel utilisateur
-     */
-    #[Route('', name: 'create', methods: ['POST'])]
-    public function create(Request $request): JsonResponse
-    {
-        $data = json_decode($request->getContent(), true);
-
-        if (!is_array($data)) {
-            return new JsonResponse(
-                ['error' => 'Invalid JSON'],
-                Response::HTTP_BAD_REQUEST
-            );
-        }
-
-        $constraints = new Assert\Collection([
-            'email' => [new Assert\NotBlank(), new Assert\Email()],
-            'name' => [new Assert\NotBlank(), new Assert\Length(min: 1, max: 255)],
-            'password' => [new Assert\NotBlank(), new Assert\Length(min: 8)],
-            'role' => new Assert\Optional([new Assert\Choice(['ROLE_USER', 'ROLE_ADMIN', 'ROLE_DEMO'])]),
-        ]);
-
-        $violations = $this->validator->validate($data, $constraints);
-
-        if (count($violations) > 0) {
-            $errors = [];
-            foreach ($violations as $violation) {
-                $errors[$violation->getPropertyPath()] = $violation->getMessage();
-            }
-
-            return new JsonResponse(
-                ['errors' => $errors],
-                Response::HTTP_BAD_REQUEST
-            );
-        }
-
-        // Dans UserController, méthode create(), remplacez le try/catch par :
-
-        try {
-            $command = new CreateUserCommand(
-                email: $data['email'],
-                name: $data['name'],
-                password: $data['password'],
-                role: $data['role'] ?? 'ROLE_USER'
-            );
-
-            $userId = ($this->createUserHandler)($command);
-
-            return new JsonResponse(
-                ['id' => $userId->value()],
-                Response::HTTP_CREATED,
-                ['Location' => "/api/v1/users/{$userId->value()}"]
-            );
-        } catch (\App\Domain\Shared\Exception\DomainException $e) {
-            return new JsonResponse(
-                [
-                    'error' => $e->getMessage(),
-                    'code' => $e->getErrorCode(),
-                ],
-                $e->getHttpStatusCode()
-            );
-        } catch (\Throwable $e) {
-            // Capturer toutes les autres exceptions pour le debug
-            return new JsonResponse(
-                [
-                    'error' => $e->getMessage(),
-                    'file' => $e->getFile(),
-                    'line' => $e->getLine(),
-                    'trace' => $e->getTraceAsString(),
-                ],
-                Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
-    }
 
     /**
      * GET /api/v1/users/{id}
