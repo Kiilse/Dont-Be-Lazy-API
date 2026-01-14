@@ -8,11 +8,7 @@ use App\Application\User\DTO\UserResponseDTO;
 use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\ValueObject\UserId;
 
-/**
- * Query Handler: Implémente une requête de lecture
- *
- * Règle: Ne modifie jamais l'état, retourne uniquement des DTOs.
- */
+
 final readonly class GetUserQueryHandler
 {
     public function __construct(

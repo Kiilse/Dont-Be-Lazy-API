@@ -15,17 +15,6 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-/**
- * API Controller: HTTP Adapter
- *
- * Règle: Le Controller est MINCE. Il contient uniquement :
- * 1. Validation de la requête HTTP
- * 2. Transformation Request → Command/Query
- * 3. Appel du handler
- * 4. Transformation Résultat → HTTP Response
- *
- * Toute la logique métier est dans Application/Domain.
- */
 #[Route('/api/v1/users', name: 'api_v1_users_')]
 final readonly class UserController
 {
@@ -36,7 +25,7 @@ final readonly class UserController
 
     /**
      * GET /api/v1/users/{id}
-     * Récupère un utilisateur par son ID
+     * Get user by id
      */
     #[Route('/{id}', name: 'get', methods: ['GET'])]
     public function get(string $id): JsonResponse
