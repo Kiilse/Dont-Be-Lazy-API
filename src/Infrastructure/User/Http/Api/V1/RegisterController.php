@@ -13,6 +13,12 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\Collection;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Choice;
+use Symfony\Component\Validator\Constraints\Optional;
 
 #[Route('/api/v1/register', name: 'api_v1_register_')]
 final readonly class RegisterController
@@ -24,7 +30,7 @@ final readonly class RegisterController
 
     /**
      * POST /api/v1/register
-     * Inscription d'un nouvel utilisateur
+     * Register new user
      */
     #[Route('', name: 'register', methods: ['POST'])]
     public function register(Request $request): JsonResponse
@@ -38,11 +44,11 @@ final readonly class RegisterController
             );
         }
 
-        $constraints = new Assert\Collection([
-            'email' => [new Assert\NotBlank(), new Assert\Email()],
-            'name' => [new Assert\NotBlank(), new Assert\Length(min: 1, max: 255)],
-            'password' => [new Assert\NotBlank(), new Assert\Length(min: 8)],
-            'role' => new Assert\Optional([new Assert\Choice(['ROLE_USER', 'ROLE_ADMIN', 'ROLE_DEMO'])]),
+        $constraints = new Collection([
+            'email' => [new NotBlank(), new Email()],
+            'name' => [new NotBlank(), new Length(min: 1, max: 255)],
+            'password' => [new NotBlank(), new Length(min: 8)],
+            'role' => new Optional([new Choice(['ROLE_USER', 'ROLE_ADMIN', 'ROLE_DEMO'])]),
         ]);
 
         $violations = $this->validator->validate($data, $constraints);

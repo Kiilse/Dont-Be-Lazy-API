@@ -9,12 +9,6 @@ use App\Domain\Shared\Exception\InvalidUserException;
 use App\Domain\User\ValueObject\UserId;
 use App\Domain\User\ValueObject\UserRole;
 
-/**
- * User Domain Entity
- *
- * Contient UNIQUEMENT la logique métier.
- * Ne connaît rien de la base de données, du framework, ou de HTTP.
- */
 final class User
 {
     private function __construct(

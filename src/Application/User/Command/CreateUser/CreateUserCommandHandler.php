@@ -13,12 +13,6 @@ use App\Domain\User\ValueObject\UserRole;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
-/**
- * Command Handler: Implémente un cas d'usage métier
- *
- * Règle: Le handler orchestre le domain mais ne contient PAS de logique métier.
- * La logique métier est dans le Domain.
- */
 final readonly class CreateUserCommandHandler
 {
     public function __construct(
@@ -41,7 +35,6 @@ final readonly class CreateUserCommandHandler
         $role = UserRole::from($command->role);
         $userId = UserId::generate();
 
-        // Créer un User temporaire pour le hashing
         $tempUser = new class($command->email) implements PasswordAuthenticatedUserInterface {
             public function __construct(private string $email) {}
             public function getPassword(): ?string
