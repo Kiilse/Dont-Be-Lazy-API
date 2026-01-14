@@ -9,13 +9,14 @@ use App\Application\User\Command\CreateUser\CreateUserCommandHandler;
 
 /**
  * Handler spécialisé pour créer un admin
- * Réutilise le handler CreateUser avec le rôle ADMIN
+ * Réutilise le handler CreateUser avec le rôle ADMIN.
  */
 final readonly class CreateAdminCommandHandler
 {
     public function __construct(
         private CreateUserCommandHandler $createUserHandler
-    ) {}
+    ) {
+    }
 
     public function __invoke(CreateAdminCommand $command): \App\Domain\User\ValueObject\UserId
     {

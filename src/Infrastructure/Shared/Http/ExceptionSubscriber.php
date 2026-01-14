@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
- * Gère les exceptions et les transforme en réponses JSON
+ * Gère les exceptions et les transforme en réponses JSON.
  */
 final readonly class ExceptionSubscriber implements EventSubscriberInterface
 {

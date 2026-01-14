@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Shared\Exception;
 
-
 final class InvalidUserException extends DomainException
 {
     public const CODE = 'INVALID_USER';

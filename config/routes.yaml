@@ -1,5 +1,11 @@
-api:
+api_user:
     resource:
         path: ../src/Infrastructure/User/Http/Api/V1
         namespace: App\Infrastructure\User\Http\Api\V1
+    type: attribute
+
+api_todo:
+    resource:
+        path: ../src/Infrastructure/ToDoList/Http/Api/V1
+        namespace: App\Infrastructure\ToDoList\Http\Api\V1
     type: attribute

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Model;
 
-use App\Domain\Shared\ValueObject\Email;
 use App\Domain\Shared\Exception\InvalidUserException;
+use App\Domain\Shared\ValueObject\Email;
 use App\Domain\User\ValueObject\UserId;
 use App\Domain\User\ValueObject\UserRole;
 
@@ -18,7 +18,8 @@ final class User
         private string $password,
         private UserRole $role,
         private bool $isActive
-    ) {}
+    ) {
+    }
 
     public static function create(
         UserId $id,

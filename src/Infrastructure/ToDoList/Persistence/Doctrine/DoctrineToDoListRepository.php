@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\ToDoList\Persistence\Doctrine;
 
-use App\Domain\ToDoList\Repository\ToDoListRepositoryInterface;
-use Doctrine\DBAL\Connection;
 use App\Domain\ToDoList\Model\ToDoList;
+use App\Domain\ToDoList\Repository\ToDoListRepositoryInterface;
 use App\Domain\ToDoList\ValueObject\ToDoListId;
-use App\Domain\User\ValueObject\UserId;
 use App\Domain\ToDoList\ValueObject\ToDoMode;
 use App\Domain\ToDoList\ValueObject\ToDoTimerType;
+use App\Domain\User\ValueObject\UserId;
+use Doctrine\DBAL\Connection;
 
 final readonly class DoctrineToDoListRepository implements ToDoListRepositoryInterface
 {
@@ -18,7 +18,8 @@ final readonly class DoctrineToDoListRepository implements ToDoListRepositoryInt
 
     public function __construct(
         private Connection $connection
-    ) {}
+    ) {
+    }
 
     public function save(ToDoList $toDoList): void
     {

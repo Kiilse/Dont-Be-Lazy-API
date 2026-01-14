@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Persistence\Doctrine;
 
-use App\Domain\Shared\ValueObject\Email;
 use App\Domain\Shared\Exception\UserNotFoundException;
+use App\Domain\Shared\ValueObject\Email;
 use App\Domain\User\Model\User;
 use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\ValueObject\UserId;
@@ -18,7 +18,8 @@ final readonly class DoctrineUserRepository implements UserRepositoryInterface
 
     public function __construct(
         private Connection $connection
-    ) {}
+    ) {
+    }
 
     public function save(User $user): void
     {

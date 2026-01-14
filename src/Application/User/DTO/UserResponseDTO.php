@@ -12,7 +12,8 @@ final readonly class UserResponseDTO implements \JsonSerializable
         public string $name,
         public string $role,
         public bool $isActive
-    ) {}
+    ) {
+    }
 
     public function jsonSerialize(): array
     {

@@ -11,7 +11,7 @@ final class InvalidUuidException extends DomainException
     public static function withValue(string $value): self
     {
         return new self(
-            sprintf('Invalid UUID format: "%s"', $value),
+            \sprintf('Invalid UUID format: "%s"', $value),
             self::CODE,
             400
         );

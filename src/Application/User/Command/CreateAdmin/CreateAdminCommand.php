@@ -10,5 +10,6 @@ final readonly class CreateAdminCommand
         public string $email,
         public string $name,
         public string $password
-    ) {}
+    ) {
+    }
 }

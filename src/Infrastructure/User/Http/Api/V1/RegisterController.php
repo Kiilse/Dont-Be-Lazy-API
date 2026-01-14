@@ -8,17 +8,16 @@ use App\Application\User\Command\CreateUser\CreateUserCommand;
 use App\Application\User\Command\CreateUser\CreateUserCommandHandler;
 use App\Domain\Shared\Exception\DomainException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Constraints\Collection;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Choice;
+use Symfony\Component\Validator\Constraints\Collection;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Optional;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/api/v1/register', name: 'api_v1_register_')]
 final readonly class RegisterController
@@ -26,18 +25,19 @@ final readonly class RegisterController
     public function __construct(
         private CreateUserCommandHandler $createUserHandler,
         private ValidatorInterface $validator
-    ) {}
+    ) {
+    }
 
     /**
      * POST /api/v1/register
-     * Register new user
+     * Register new user.
      */
     #[Route('', name: 'register', methods: ['POST'])]
     public function register(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
-        if (!is_array($data)) {
+        if (!\is_array($data)) {
             return new JsonResponse(
                 ['error' => 'Invalid JSON'],
                 Response::HTTP_BAD_REQUEST
@@ -53,8 +53,9 @@ final readonly class RegisterController
 
         $violations = $this->validator->validate($data, $constraints);
 
-        if (count($violations) > 0) {
+        if (\count($violations) > 0) {
             $errors = [];
+
             foreach ($violations as $violation) {
                 $errors[$violation->getPropertyPath()] = $violation->getMessage();
             }

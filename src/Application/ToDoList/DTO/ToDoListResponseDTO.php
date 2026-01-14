@@ -13,7 +13,8 @@ final readonly class ToDoListResponseDTO implements \JsonSerializable
         public string $mode,
         public string $timerType,
         public int $timerValue
-    ) {}
+    ) {
+    }
 
     public function jsonSerialize(): array
     {
@@ -23,7 +24,7 @@ final readonly class ToDoListResponseDTO implements \JsonSerializable
             'title' => $this->title,
             'mode' => $this->mode,
             'timerType' => $this->timerType,
-            'timerValue' => $this->timerValue
+            'timerValue' => $this->timerValue,
         ];
     }
 }

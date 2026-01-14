@@ -32,13 +32,18 @@ services:
         arguments:
             $userRepository: '@App\Domain\User\Repository\UserRepositoryInterface'
 
+    App\Infrastructure\User\Security\JwtAuthenticationSuccessHandler:
+        tags:
+            - { name: kernel.event_subscriber }
+
     # To Do List Controllers
     App\Domain\ToDoList\Repository\ToDoListRepositoryInterface:
         alias: App\Infrastructure\ToDoList\Persistence\Doctrine\DoctrineToDoListRepository
 
+    App\Application\ToDoList\Query\GetToDoListQueryHandler:
+        arguments:
+            $toDoListRepository: '@App\Domain\ToDoList\Repository\ToDoListRepositoryInterface'
+
     App\Infrastructure\ToDoList\Http\Api\V1\ToDoListController:
         tags: ['controller.service_arguments']
         public: true
-    
-    
-    

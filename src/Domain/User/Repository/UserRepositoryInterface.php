@@ -9,7 +9,7 @@ use App\Domain\User\Model\User;
 use App\Domain\User\ValueObject\UserId;
 
 /**
- * Repository Interface 
+ * Repository Interface.
  *
  * Cette interface est dans le Domain car elle définit un BESOIN métier.
  * L'implémentation est dans Infrastructure (ADAPTER).

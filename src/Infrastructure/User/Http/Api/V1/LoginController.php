@@ -35,7 +35,8 @@ final readonly class LoginController
         }
 
         try {
-            $user = $this->userRepository->findByEmail($data['email']);
+            $email = \App\Domain\Shared\ValueObject\Email::fromString($data['email']);
+            $user = $this->userRepository->findByEmail($email);
 
             if (!$user || !$user->isActive()) {
                 throw new AuthenticationException('Invalid credentials');
@@ -55,12 +56,23 @@ final readonly class LoginController
                     'id' => $user->id()->value(),
                     'email' => $user->email()->value(),
                     'name' => $user->name(),
-                ]
+                    'role' => $user->role()->value,
+                ],
             ]);
         } catch (AuthenticationException $e) {
             return new JsonResponse(
                 ['error' => 'Invalid credentials'],
                 Response::HTTP_UNAUTHORIZED
+            );
+        } catch (\Throwable $e) {
+            return new JsonResponse(
+                [
+                    'error' => 'An error occurred',
+                    'message' => $e->getMessage(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
     }

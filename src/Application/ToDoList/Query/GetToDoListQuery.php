@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Application\ToDoList\Query\GetToDoList;
+namespace App\Application\ToDoList\Query;
 
 final readonly class GetToDoListQuery
 {

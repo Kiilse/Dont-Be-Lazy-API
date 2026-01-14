@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Application\ToDoList\Query\GetToDoList;
+namespace App\Application\ToDoList\Query;
 
-use App\Domain\ToDoList\Repository\ToDoListRepositoryInterface;
 use App\Domain\ToDoList\ValueObject\ToDoListId;
 use App\Application\ToDoList\DTO\ToDoListResponseDTO;
-use App\Application\ToDoList\Query\GetToDoList\GetToDoListQuery;
+use App\Application\ToDoList\Query\GetToDoListQuery;
+use App\Domain\ToDoList\Repository\ToDoListRepositoryInterface;
 
 final readonly class GetToDoListQueryHandler
 {

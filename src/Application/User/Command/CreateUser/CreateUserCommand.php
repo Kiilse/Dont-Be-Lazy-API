@@ -11,5 +11,6 @@ final readonly class CreateUserCommand
         public string $name,
         public string $password,
         public string $role = 'ROLE_USER'
-    ) {}
+    ) {
+    }
 }

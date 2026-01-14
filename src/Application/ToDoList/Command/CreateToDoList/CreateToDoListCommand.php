@@ -16,5 +16,6 @@ final readonly class CreateToDoListCommand
         public ToDoMode $mode = ToDoMode::CLASSIQUE,
         public ToDoTimerType $timerType = ToDoTimerType::FIX,
         public int $timerValue = 30
-    ) {}
+    ) {
+    }
 }

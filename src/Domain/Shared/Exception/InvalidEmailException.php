@@ -11,7 +11,7 @@ final class InvalidEmailException extends DomainException
     public static function withValue(string $value): self
     {
         return new self(
-            sprintf('Invalid email format: "%s"', $value),
+            \sprintf('Invalid email format: "%s"', $value),
             self::CODE,
             400
         );

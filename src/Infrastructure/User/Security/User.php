@@ -12,14 +12,17 @@ final readonly class User implements UserInterface, PasswordAuthenticatedUserInt
 {
     public function __construct(
         private DomainUser $domainUser
-    ) {}
+    ) {
+    }
 
     public function getRoles(): array
     {
         return [$this->domainUser->role()->value];
     }
 
-    public function eraseCredentials(): void {}
+    public function eraseCredentials(): void
+    {
+    }
 
     public function getUserIdentifier(): string
     {

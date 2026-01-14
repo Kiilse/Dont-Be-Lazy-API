@@ -8,12 +8,12 @@ use App\Application\User\DTO\UserResponseDTO;
 use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\ValueObject\UserId;
 
-
 final readonly class GetUserQueryHandler
 {
     public function __construct(
         private UserRepositoryInterface $userRepository
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetUserQuery $query): UserResponseDTO
     {

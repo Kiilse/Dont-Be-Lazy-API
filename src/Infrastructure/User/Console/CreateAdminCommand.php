@@ -14,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
- * Console command: Créer un administrateur
+ * Console command: Créer un administrateur.
  *
  * Pourquoi une commande console ?
  * - Automatisation (cron jobs, CI/CD)
@@ -59,7 +59,7 @@ final class CreateAdminCommand extends Command
 
             $userId = ($this->handler)($command);
 
-            $io->success(sprintf(
+            $io->success(\sprintf(
                 'Administrateur créé avec succès ! ID: %s',
                 $userId->value()
             ));
@@ -67,6 +67,7 @@ final class CreateAdminCommand extends Command
             return Command::SUCCESS;
         } catch (\Exception $e) {
             $io->error($e->getMessage());
+
             return Command::FAILURE;
         }
     }

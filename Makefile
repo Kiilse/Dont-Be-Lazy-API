@@ -39,3 +39,31 @@ db-reset: ## Réinitialise la base de données (ATTENTION: supprime toutes les d
 
 create-admin: ## Crée le premier administrateur (usage: make create-admin EMAIL="admin@example.com" PASSWORD="password" NAME="Admin")
 	docker-compose exec php php bin/console app:user:create-admin $(EMAIL) $(PASSWORD) $(NAME)
+
+.PHONY: cs-fix
+cs-fix: ## Fix code style
+	docker-compose exec php vendor/bin/php-cs-fixer fix src/
+
+.PHONY: cs-check
+cs-check: ## Check code style without fixing
+	docker-compose exec php vendor/bin/php-cs-fixer fix --dry-run --diff src/
+
+.PHONY: cs-fix-new
+cs-fix-new: ## Fix code style with new diff
+	docker-compose exec php vendor/bin/php-cs-fixer fix --path-mode=intersection
+
+.PHONY: phpstan-full
+phpstan-full: ## Run PHPStan static analysis with full level
+	docker-compose exec php vendor/bin/phpstan analyse --level=max
+
+.PHONY: phpstan
+phpstan: ## Run PHPStan static analysis
+	docker-compose exec php vendor/bin/phpstan analyse
+
+.PHONY: phpstan-baseline
+phpstan-baseline: ## Generate PHPStan baseline
+	docker-compose exec php vendor/bin/phpstan analyse --generate-baseline
+
+.PHONY: phpstan-clear-cache
+phpstan-clear-cache: ## Clear PHPStan cache
+	docker-compose exec php vendor/bin/phpstan clear-result-cache

@@ -18,7 +18,8 @@ final class ToDoList
         private readonly ToDoMode $mode,
         private readonly ToDoTimerType $timerType,
         private readonly int $timerValue
-    ) {}
+    ) {
+    }
 
     public static function create(
         UserId $userId,

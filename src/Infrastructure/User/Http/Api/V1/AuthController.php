@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Http\Api\V1;
 
-use App\Application\User\DTO\UserResponseDTO;
 use App\Application\User\Query\GetUser\GetUserQuery;
 use App\Application\User\Query\GetUser\GetUserQueryHandler;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
@@ -15,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
- * Controller d'authentification
+ * Controller d'authentification.
  */
 #[Route('/api/v1/auth', name: 'api_v1_auth_')]
 final readonly class AuthController
@@ -23,11 +22,12 @@ final readonly class AuthController
     public function __construct(
         private JWTTokenManagerInterface $jwtManager,
         private GetUserQueryHandler $getUserHandler
-    ) {}
+    ) {
+    }
 
     /**
      * GET /api/v1/auth/me
-     * Récupère les informations de l'utilisateur connecté
+     * Récupère les informations de l'utilisateur connecté.
      */
     #[Route('/me', name: 'me', methods: ['GET'])]
     #[IsGranted('ROLE_USER')]

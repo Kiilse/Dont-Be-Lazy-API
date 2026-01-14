@@ -7,7 +7,7 @@ namespace App\Domain\Shared\ValueObject;
 use App\Domain\Shared\Exception\InvalidUuidException;
 
 /**
- * UUID Value Object
+ * UUID Value Object.
  *
  * Encapsule un UUID avec validation.
  * Avantage : impossible d'avoir un UUID invalide dans le système.
@@ -16,7 +16,8 @@ final readonly class Uuid implements \Stringable
 {
     private function __construct(
         private string $value
-    ) {}
+    ) {
+    }
 
     public static function generate(): self
     {

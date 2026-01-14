@@ -10,7 +10,8 @@ final readonly class UserId
 {
     private function __construct(
         private Uuid $value
-    ) {}
+    ) {
+    }
 
     public static function generate(): self
     {
