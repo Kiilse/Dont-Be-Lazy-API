@@ -12,6 +12,18 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    App\Infrastructure\User\Http\Api\V1\UserController:
+        tags: ['controller.service_arguments']
+        public: true
+
+    App\Infrastructure\User\Http\Api\V1\AuthController:
+        tags: ['controller.service_arguments']
+        public: true
+
+    App\Infrastructure\User\Http\Api\V1\RegisterController:
+        tags: ['controller.service_arguments']
+        public: true
+
     App\Domain\User\Repository\UserRepositoryInterface:
         alias: App\Infrastructure\User\Persistence\Doctrine\DoctrineUserRepository
 

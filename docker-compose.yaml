@@ -14,6 +14,9 @@ services:
       REDIS_URL: redis://redis:6379
       APP_ENV: dev
       APP_SECRET: ${APP_SECRET:-change-this-secret-key-in-production}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-%kernel.project_dir%/config/jwt/private.pem}
+      JWT_PUBLIC_KEY: ${JWT_PUBLIC_KEY:-%kernel.project_dir%/config/jwt/public.pem}
+      JWT_PASSPHRASE: ${JWT_PASSPHRASE:-}
     depends_on:
       - postgres
       - redis

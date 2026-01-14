@@ -29,7 +29,7 @@ final readonly class DoctrineUserRepository implements UserRepositoryInterface
             'password' => $user->password(),
             'role' => $user->role()->value,
             'is_active' => $user->isActive(),
-            'updated_at' => new \DateTimeImmutable(),
+            'updated_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
         ];
 
         $exists = $this->connection->createQueryBuilder()
@@ -42,7 +42,7 @@ final readonly class DoctrineUserRepository implements UserRepositoryInterface
         if ($exists) {
             $this->connection->update(self::TABLE, $data, ['id' => $user->id()->value()]);
         } else {
-            $data['created_at'] = new \DateTimeImmutable();
+            $data['created_at'] = (new \DateTimeImmutable())->format('Y-m-d H:i:s');
             $this->connection->insert(self::TABLE, $data);
         }
     }
@@ -99,7 +99,7 @@ final readonly class DoctrineUserRepository implements UserRepositoryInterface
             ->select('*')
             ->from(self::TABLE)
             ->where('name = :name')
-            ->setParameter('id', $name)
+            ->setParameter('name', $name)
             ->fetchAssociative();
 
         if (!$row) {

@@ -25,7 +25,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www/html
 
-# Set permissions
-RUN chown -R www-data:www-data /var/www/html
+# Create cache and log directories with proper permissions
+RUN mkdir -p var/cache var/log && \
+    chown -R www-data:www-data /var/www/html && \
+    chmod -R 777 var/cache var/log
 
 USER www-data
